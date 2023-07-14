@@ -21,6 +21,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public void Delete(Category t)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteCategory(Category category)
         {
             using (Context context = new Context())
@@ -38,12 +43,32 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public Category GetByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Category> GetListAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Category t)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Category> ListAllCategory()
         {
             using (Context context = new Context())
             {
               return context.Categories.ToList();
             }
+        }
+
+        public void Update(Category t)
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateCategory(Category category)
