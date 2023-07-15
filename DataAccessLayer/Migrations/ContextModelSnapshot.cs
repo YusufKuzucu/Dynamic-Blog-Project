@@ -107,7 +107,7 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Concrete.Comment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<int>("CommentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -130,7 +130,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("CommentUserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CommentId");
+                    b.HasKey("CommentID");
 
                     b.HasIndex("BlogID");
 
