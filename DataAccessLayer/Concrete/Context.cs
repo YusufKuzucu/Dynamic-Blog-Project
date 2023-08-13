@@ -12,7 +12,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("");
+            optionsBuilder.UseSqlServer("Data Source=YUSUF_KUZUCU\\SQLEXPRESS;Initial Catalog=CoreBlogDb;User Id=yusuf;Password=123456;TrustServerCertificate=true");
         }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Blog> Blogs { get; set; }
