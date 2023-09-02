@@ -22,5 +22,6 @@ namespace CoreDemo.Controllers
 			
 			return PartialView();
 		}
+
 	}
 }
