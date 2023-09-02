@@ -9,12 +9,13 @@ namespace CoreDemo.Controllers
 		AboutManager ab = new AboutManager(new EfAboutRepository());
 		public IActionResult Index()
 		{
-			return View();
+			var values = ab.GetList();
+
+			return View(values);
 		}
 		public PartialViewResult SocialMediaAbout()
 		{
-			var values = ab.GetList();
-			return PartialView(values);
+			return PartialView();
 		}
 	}
 }
