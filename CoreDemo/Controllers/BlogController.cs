@@ -1,8 +1,12 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
+using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace CoreDemo.Controllers
 {
@@ -25,6 +29,34 @@ namespace CoreDemo.Controllers
         {
             var values=bm.GetBlogListByWriter(1);
             return View(values);
+        }
+        [HttpGet]
+        public IActionResult BlogAdd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult BlogAdd(Blog p)
+        {
+            BlogValidator wv = new BlogValidator();
+            ValidationResult result = wv.Validate(p);
+            if (result.IsValid)
+            {
+                p.BlogStatus = true;
+                p.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                p.WriterID= 1;
+                bm.TAdd(p);
+                return RedirectToAction("BlogByWriterList", "Blog");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
+         
         }
     }
 }
