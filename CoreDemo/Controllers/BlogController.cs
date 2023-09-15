@@ -30,7 +30,7 @@ namespace CoreDemo.Controllers
         }
         public IActionResult BlogByWriterList()
         {
-            var values=bm.GetBlogListByWriter(1);
+            var values=bm.GetListCategoryWriterBm(1);
             return View(values);
         }
         [HttpGet]
@@ -68,6 +68,13 @@ namespace CoreDemo.Controllers
             }
             return View();
          
+        }
+
+        public IActionResult DeleteBlog(int id)
+        {
+            var blogValue=bm.GetById(id);
+            bm.TDelete(blogValue);
+            return RedirectToAction("BlogByWriterList", "Blog");
         }
     }
 }
