@@ -26,7 +26,7 @@
     <br />
     <br />
     @Html.Label("Kategori")
-    @Html.TextAreaFor(x=>x.CategoryID,new{ @class="form-control"})
+    @Html.DropDownListFor(x=>x.CategoryID,(List<SelectListItem>)ViewBag.categoryValues,new{@class="form-control"})
     <br />
     <br />
     @Html.Label("Blog İçeriği")
