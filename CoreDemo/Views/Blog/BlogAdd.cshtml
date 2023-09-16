@@ -10,19 +10,19 @@
 @using (Html.BeginForm("BlogAdd", "Blog", FormMethod.Post))
 {
     @Html.Label("Blog Başlığı")
-    @Html.TextAreaFor(x=>x.BlogTitle,new{ @class="form-control"})   
+    @Html.TextBoxFor(x=>x.BlogTitle,new{ @class="form-control"})   
     @Html.ValidationMessageFor(x=>x.BlogTitle)
     <br />
     <br />
 
     @Html.Label("Blog Görseli")
-    @Html.TextAreaFor(x=>x.BlogImage,new{ @class="form-control"})
+    @Html.TextBoxFor(x=>x.BlogImage,new{ @class="form-control"})
     @Html.ValidationMessageFor(x=>x.BlogImage)
     <br />
     <br />
 
     @Html.Label("Blog Küçük Görsel")
-    @Html.TextAreaFor(x=>x.BlogThumbnailImage,new{ @class="form-control"})
+    @Html.TextBoxFor(x=>x.BlogThumbnailImage,new{ @class="form-control"})
     <br />
     <br />
     @Html.Label("Kategori")
