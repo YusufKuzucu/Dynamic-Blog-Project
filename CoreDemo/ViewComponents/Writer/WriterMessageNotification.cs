@@ -6,12 +6,12 @@ namespace CoreDemo.ViewComponents.Writer
 {
     public class WriterMessageNotification:ViewComponent
     {
-        MessageManager manager = new MessageManager(new EfMessageRepository());
+        Message2Manager manager = new Message2Manager(new EfMessage2Repository());
         public IViewComponentResult Invoke()
         {
-            string p = "deneme@gmail.com";
+            int p = 2;
             var values = manager.GetInboxListByWriter(p);
-            return View(values  );
+            return View(values);
         }
     }
 }
