@@ -10,7 +10,7 @@ namespace CoreDemo.Controllers
        
         Context context = new Context();
 
-        [AllowAnonymous]
+  
         public IActionResult Index()
         {
             ViewBag.v1 =context.Blogs.Count().ToString();
