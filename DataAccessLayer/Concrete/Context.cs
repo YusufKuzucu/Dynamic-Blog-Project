@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DataAccessLayer.Concrete
 {
     public class Context:DbContext
-    {
+    {   
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("");
