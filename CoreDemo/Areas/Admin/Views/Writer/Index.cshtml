@@ -7,6 +7,9 @@
 <h1>Yazar Ajax İşlemleri</h1><br />
 <button type="button" id="btngetlist" class="btn btn-outline-primary">Yazar Listesi</button>
 <button type="button" id="btngetbyid" class="btn btn-outline-success">Yazar Getir</button>
+<button type="button" id="btnaddwriter" class="btn btn-outline-info">Yazar Ekle</button>
+<button type="button" id="btndeletewriter" class="btn btn-outline-info">Yazar Sil</button>
+<button type="button" id="btnupdatewriter" class="btn btn-outline-info">Yazar Güncelle</button>
 <br />
 <br />
 <div id="writerlist">
@@ -19,7 +22,24 @@
 <br />
 <div>  
     <input type="text" id="writerId" placeholder="Yazar Id Değeri Girin" class="form-control" />
+</div><br />
+<br />
+
+<div>
+    <input type="text" class="form-control" id="txtwriterID" placeholder="Yazar ID" /><br />
+    <input type="text" class="form-control" id="txtwritername" placeholder="Yazar Adı" /><br />
 </div>
+
+<br />
+<div>
+    <input type="text" class="form-control" id="txtID" placeholder="Silinecek Yazar ID" /><br />
+
+</div>
+<br />
+<div>
+    <input type="text" class="form-control" id="txtid1" placeholder="Güncellenecek ID" /><br />
+    <input type="text" class="form-control" id="txtname1" placeholder="Güncellenecek İsim" /><br />
+</div><br />
 @section scripts{
     <script>
 
@@ -43,7 +63,66 @@
 
         $("#btngetbyid").click(x => {
             let id = $("#writerId").val();
-            console.log(id);
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "GET",
+                url: "/Admin/Writer/GetWriterByID/",
+                data: { writerId: id },
+                success: function (func) {
+                    let value = jQuery.parseJSON(func)
+                    let getValue = `<table class='table table-bordered'> <tr> <th>Yazar ID</th> <th>Yazar Adı</th> </tr> <tr><td>${value.Id}</td><td>${value.Name}</td></tr></table>`;
+                    $("#writerget").html(getValue);
+                }
+
+            });
         });
+
+        $("#btnaddwriter").click(function () {
+            let writer = {
+                Id: $("#txtwriterID").val(),
+                Name: $("#txtwritername").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Writer/AddWriter",
+                data: writer,
+                success: function (func) {
+                    let result = jQuery.parseJSON(func);
+                    alert("yazar ekleme işlemi başarılı bir şekilde gerçekleşti")
+                }
+            });
+        });
+
+        $("#btndeletewriter").click(function () {
+            let id = $("#txtID").val();
+
+            $.ajax({
+                type: "POST",
+                dataType:"json",
+                url: "/Admin/Writer/DeleteWriter/"+id,
+                success: function (func) {
+                    alert("yazar silme işlemi başarılı bir şekilde gerçekleşti")
+                }
+            });
+        });
+
+        $("#btnupdatewriter").click(function () {
+            let writre = {
+                Id=$("#txtid1").val(),
+                Name=$("#txtname1").val()
+            };
+            $.ajax({
+                type:"POST",
+                dataType: "json",
+                url: "/Admin/Writer/UpdateWriter/",
+                data: writre,
+                success:function(func){
+                    alert("yazar güncelleme işlemi başarılı bir şekilde gerçekleşti")
+                }
+            });
+        });
+
+
     </script>
 }
