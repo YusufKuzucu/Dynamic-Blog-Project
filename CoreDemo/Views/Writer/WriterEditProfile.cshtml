@@ -1,4 +1,4 @@
-﻿@model EntityLayer.Concrete.Writer
+﻿@model EntityLayer.Concrete.AppUser
 @{
     ViewData["Title"] = "WriterEditProfile";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
@@ -12,20 +12,20 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Yazar Profil Bilgileri Düzenleme</h4>
-                @Html.HiddenFor(x=>x.WriterID,new{@class="form-control"})
+                @Html.HiddenFor(x=>x.Id,new{@class="form-control"})
                 <form class="forms-sample">
                     <div class="form-group">
                         <label for="exampleInputName1">Name</label>
-                        @Html.TextBoxFor(x=>x.WriterName,new{@class="form-control"})
+                        @Html.TextBoxFor(x=>x.UserName,new{@class="form-control"})
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">Mail Adres</label>
-                        @Html.TextBoxFor(x=>x.WriterMail,new{@class="form-control"})
+                        @Html.TextBoxFor(x=>x.Email,new{@class="form-control"})
 
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Şifre</label>
-                        @Html.PasswordFor(x=>x.WriterPassword,new{@class="form-control"})
+                        @Html.PasswordFor(x=>x.PasswordHash,new{@class="form-control"})
 
                     </div>
                    
@@ -38,12 +38,6 @@
                                 <button class="file-upload-browse btn btn-gradient-primary" type="button">Resim Seç</button>
                             </span>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleTextarea1">Yazar Hakkında</label>
-                        @Html.TextAreaFor(x=>x.WriterAbout,10,3,new{@class="form-control"})
-
                     </div>
                     <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
                     <button class="btn btn-light">İptal</button>
