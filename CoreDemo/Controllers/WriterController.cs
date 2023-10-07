@@ -52,39 +52,28 @@ namespace CoreDemo.Controllers
 			return PartialView();
 		}
 		[HttpGet]
-		public IActionResult WriterEditProfile()
+		public async  Task<IActionResult> WriterEditProfile()
 		{
-			var userName = User.Identity.Name;
-			Context c = new Context();
-			var usermail = c.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
-			UserManager userManager = new UserManager(new EfUserRepository());
-			//         var writerID = c.Writers.Where(x => x.WriterMail == usermail).Select(x => x.WriterID).FirstOrDefault();
-			//         var writerValues = manager.GetById(writerID);
-			//return View(writerValues);
-			var id = c.Users.Where(x => x.Email == usermail).Select(x=>x.Id).FirstOrDefault();
-			var values = userManager.GetById(id);
-			return View(values);
+			var values = await _userManager.FindByNameAsync(User.Identity.Name);
+			UserUpdateViewModel model=new UserUpdateViewModel();
+            model.nameSurname = values.UserName;
+            model.mail = values.Email;
+            model.imageurl = values.ImageUrl;	
+            model.username = values.UserName;
+            return View(model);
 		}
         [HttpPost]		
-        public IActionResult WriterEditProfile(Writer p)
+        public async Task<IActionResult> WriterEditProfile(UserUpdateViewModel model)
         {
-			WriterValidator wl=new WriterValidator();
-			var result=wl.Validate(p);
-			if (result.IsValid)
-			{
-                manager.TUpdate(p);
-
-				return RedirectToAction("Index", "Dasboard");
-
-            }
-			else
-			{
-                foreach (var item in result.Errors)
-                {
-					ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }
-            return View();
+			var values = await _userManager.FindByNameAsync(User.Identity.Name);
+			model = new UserUpdateViewModel();
+			values.NameSurname = model.nameSurname;
+			values.ImageUrl = model.imageurl;
+			values.Email = model.mail;
+			values.UserName=model.username;
+			values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.password);
+			var result=await _userManager.UpdateAsync(values);	
+            return RedirectToAction("Index", "Dasboard");
         }
 		[AllowAnonymous]
 		[HttpGet]
@@ -116,5 +105,6 @@ namespace CoreDemo.Controllers
             return RedirectToAction("Index", "Dasboard");
 
         }
+
     }
 }
