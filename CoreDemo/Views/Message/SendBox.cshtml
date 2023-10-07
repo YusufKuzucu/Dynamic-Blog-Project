@@ -1,12 +1,11 @@
 ﻿@using EntityLayer.Concrete
 @model List<Message2>
 @{
-    ViewData["Title"] = "InBox";
+    ViewData["Title"] = "SendBox";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
-<h1>Gelen Kutusu</h1>
-
+<h1>Gönderilen Kutusu</h1>
 
 <table class="table table-hover">
     <tr>
@@ -22,7 +21,7 @@
         <tr>
             <th>@item.MessageID</th>
             <td>@item.Subject</td>
-            <td>@item.SenderUser.WriterName</td>
+            <td>@item.ReceiverUser.WriterName</td>
             <td>@(((DateTime)item.MessageDate).ToString("dd-MMM-yyyy"))</td>
             <td><a href="/Message/MessageDetails/@item.MessageID" class="btn btn-warning">Mesajı Aç</a></td>
 
@@ -31,4 +30,5 @@
 
 </table>
 <a href="/Message/SendMessage/" class="btn btn-primary">Yeni Mesaj oluştur</a>
+
 
