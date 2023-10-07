@@ -33,9 +33,11 @@ namespace CoreDemo.Controllers
         }
         public IActionResult BlogByWriterList()
         {
-             var usermail = User.Identity.Name;
             Context c = new Context();
-            var writerID = c.Writers.Where(x => x.WriterMail == usermail).Select(x => x.WriterID).FirstOrDefault();
+            var userName = User.Identity.Name;
+            var userMail = c.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
+            var writerID = c.Writers.Where(x => x.WriterMail == userMail).Select(x => x.WriterID).FirstOrDefault();
+            ViewBag.v=writerID;
             var values=bm.GetListCategoryWriterBm(writerID);
             return View(values);
         }
@@ -54,10 +56,10 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult BlogAdd(Blog p)
         {
-            var usermail = User.Identity.Name;
             Context c = new Context();
-            var writerID = c.Writers.Where(x => x.WriterMail == usermail).Select(x => x.WriterID).FirstOrDefault();
-
+            var userName = User.Identity.Name;
+            var userMail = c.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
+            var writerID = c.Writers.Where(x => x.WriterMail == userMail).Select(x => x.WriterID).FirstOrDefault();
             BlogValidator wv = new BlogValidator();
             ValidationResult result = wv.Validate(p);
             if (result.IsValid)
@@ -101,8 +103,12 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog blog)
         {
+            Context c = new Context();
+            var userName = User.Identity.Name;
+            var userMail = c.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
+            var writerID = c.Writers.Where(x => x.WriterMail == userMail).Select(x => x.WriterID).FirstOrDefault();
             var blogValue = bm.GetById(blog.BlogID);
-            blog.WriterID = 1;
+            blog.WriterID = writerID;
             blog.BlogCreateDate = DateTime.Parse(blogValue.BlogCreateDate.ToShortDateString());
             blog.BlogStatus = true;
             bm.TUpdate(blog);
