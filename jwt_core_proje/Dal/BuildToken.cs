@@ -17,5 +17,7 @@ namespace jwt_core_proje.Dal
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             return jwtSecurityTokenHandler.WriteToken(token);
         }
+
+
     }
 }
